@@ -21,13 +21,21 @@ Esta aplicación permite:
 
 git clone https://github.com/tu-usuario/ml-flask-app.git
 cd ml-flask-app
-Instalar dependencias:
+
+
+2. Instalar dependencias:
 
 pip install -r requirements.txt
-Ejecutar la aplicación:
+
+
+3. Ejecutar la aplicación:
 
 python app.py
-Abrir navegador en:
+
+
+4. Abrir navegador en:
 
 http://127.0.0.1:5000
-Subir un archivo CSV y hacer predicciones.
+
+
+5. Subir un archivo CSV y hacer predicciones.

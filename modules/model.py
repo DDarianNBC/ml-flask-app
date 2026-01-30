@@ -1,16 +1,7 @@
-# modules/model.py
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 def entrenar_modelo(df):
-    """
-    Entrena un modelo de regresión lineal.
-    Usa la última columna como variable objetivo (y)
-    y todas las demás como features (X)
-    """
-    if df.shape[1] < 2:
-        raise ValueError("El DataFrame debe tener al menos 2 columnas")
-
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 

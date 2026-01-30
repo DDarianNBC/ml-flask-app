@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Machine Learning</title>
+</head>
+<body>
+    <h1>Aplicación de Machine Learning</h1>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Subir y predecir</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% if image %}
+        <h2>Resultado</h2>
+        <img src="{{ image }}" width="600">
+        <br>
+        <a href="{{ image }}" download>Descargar gráfico PNG</a>
+    {% endif %}
+</body>
+</html>

@@ -1,10 +1,3 @@
-# Preprocesamiento de datos
-import pandas as pd
-
-class ArchivoInvalidoError(Exception):
-    """Excepción personalizada para archivos incorrectos"""
-    pass
-
 def cargar_y_preprocesar_csv(file):
     try:
         df = pd.read_csv(file)
@@ -14,6 +7,11 @@ def cargar_y_preprocesar_csv(file):
 
         # Limpieza básica
         df = df.dropna()
+
+        # Forzar todo a numérico (opcional)
+        df = df.apply(pd.to_numeric, errors='coerce')
+        df = df.dropna()
+
         df = df.select_dtypes(include=["number"])
 
         if df.shape[1] < 2:

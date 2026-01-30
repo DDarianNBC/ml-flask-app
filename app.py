@@ -7,14 +7,11 @@ from modules.visualization import crear_grafico_real_vs_pred
 
 app = Flask(__name__)
 
-# Asegurar que exista la carpeta para imágenes
 os.makedirs("static/images", exist_ok=True)
-
 
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -27,36 +24,22 @@ def predict():
         if file.filename == "":
             raise ArchivoInvalidoError("Nombre de archivo vacío")
 
-        # 1. Preprocesamiento
         df = cargar_y_preprocesar_csv(file)
 
-        # 2. Modelo
         modelo, X_test, y_test = entrenar_modelo(df)
         y_pred = modelo.predict(X_test)
 
-        # 3. Visualización
         crear_grafico_real_vs_pred(y_test, y_pred)
 
-        return render_template(
-            "index.html",
-            image="static/images/resultado.png"
-        )
+        return render_template("index.html", image="static/images/resultado.png")
 
     except ArchivoInvalidoError as e:
-        return render_template(
-            "index.html",
-            error=str(e)
-        )
-
+        return render_template("index.html", error=str(e))
     except Exception:
-        return render_template(
-            "index.html",
-            error="Ocurrió un error inesperado en la aplicación"
-        )
-
+        return render_template("index.html", error="Ocurrió un error inesperado")
     finally:
         print("Proceso de predicción finalizado")
 
-
 if __name__ == "__main__":
     app.run(debug=True)
+

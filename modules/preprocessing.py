@@ -1,19 +1,19 @@
-# modules/preprocessing.py
 import pandas as pd
 
 class ArchivoInvalidoError(Exception):
-    """Excepción personalizada para archivos incorrectos"""
     pass
 
 def cargar_y_preprocesar_csv(file):
     try:
-        df = pd.read_csv(file)
+        # Leer CSV correctamente, usando la primera fila como encabezado
+        df = pd.read_csv(file, header=0)
 
         if df.empty:
             raise ArchivoInvalidoError("El archivo CSV está vacío")
 
-        # Forzar todo a numérico, ignorando errores
-        df = df.apply(pd.to_numeric, errors='coerce')
+        # Convertir solo las columnas existentes (sin tocar encabezado)
+        for col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
 
         # Eliminar filas con NaN
         df = df.dropna()

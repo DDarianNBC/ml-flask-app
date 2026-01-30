@@ -1,25 +1,18 @@
+# modules/visualization.py
 import plotly.express as px
-import pandas as pd
+import os
 
-def crear_grafico_real_vs_pred(y_real, y_pred):
-    """
-    Crea un gráfico interactivo Real vs Predicción
-    y lo guarda como PNG.
-    """
-    df = pd.DataFrame({
-        "Valor real": y_real,
-        "Predicción": y_pred
-    })
+def crear_grafico_real_vs_pred(y_test, y_pred):
+    # Crear DataFrame para gráfico
+    import pandas as pd
+    df_plot = pd.DataFrame({"Real": y_test, "Predicción": y_pred})
 
-    fig = px.scatter(
-        df,
-        x="Valor real",
-        y="Predicción",
-        title="Valores reales vs Predicción",
-        trendline="ols"
-    )
+    # Gráfico de dispersión
+    fig = px.scatter(df_plot, x="Real", y="Predicción",
+                     title="Real vs Predicción",
+                     labels={"Real": "Valores Reales", "Predicción": "Predicción del Modelo"})
 
-    # Guardar imagen
+    # Guardar en static/images
+    os.makedirs("static/images", exist_ok=True)
     fig.write_image("static/images/resultado.png")
 
-    return fig
